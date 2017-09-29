@@ -1,0 +1,25 @@
+{application, veon, [
+    %% TODO: change this information for your project
+    {description, "Base application for Veon projects"},
+    {vsn, git},
+    {registered, []},
+    {mod, {veon_app, []}},
+    {application, [
+        kernel,
+        stdlib,
+        lager,
+        sasl,
+        inets,
+        snatch,
+        eredis,
+        elli,
+        prometheus,
+        prometheus_httpd,
+        recon
+    ]},
+    {env, []},
+    {modules, []},
+
+    {maintainers, ["Manuel Rubio"]},
+    {licenses, ["Veon Propietary"]}
+]}.
