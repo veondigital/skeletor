@@ -19,7 +19,7 @@ Create a base directory for your projects having `rebar3` script and a `rebar.co
 
 ```
 {plugins, [
-    {skeletor, {git, "git@git.knoopje.com:communications/skeletor.git", {branch, "master"}}}
+    {skeletor, {git, "https://gitlab.knoopje.com/communications/skeletor.git", {branch, "master"}}}
 ]}.
 ```
 
