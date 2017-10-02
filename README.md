@@ -3,6 +3,8 @@ skeletor
 
 This project is the base to create other Erlang projects. This file is a small guide to give you an idea of what is provided by the skeleton and what should be implemented.
 
+![Skeletor](https://gitlab.knoopje.com/communications/skeletor/raw/development/skeletor.jpg)
+
 Build
 -----
 
