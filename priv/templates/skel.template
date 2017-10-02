@@ -23,4 +23,4 @@
 {dir, "{{name}}/test"}.
 {template, "test/veon_app_tests.erl", "{{name}}/test/{{name}}_app_tests.erl"}.
 {template, "test/veon_http_tests.erl", "{{name}}/test/{{name}}_http_tests.erl"}.
-{chmod, "rebar3", 8#755}.
+{chmod, "{{name}}/rebar3", 8#755}.
