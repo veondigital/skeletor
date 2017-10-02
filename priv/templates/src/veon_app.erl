@@ -1,5 +1,5 @@
--module(veon_app).
--author('manuel.rubio@veon.com').
+-module({{name}}_app).
+-author('{{author_email}}').
 
 -behaviour(application).
 -behaviour(supervisor).
@@ -21,7 +21,7 @@ init([]) ->
     }}.
 
 children() ->
-    veon_redis:specs(application:get_env(veon, redis, [])) ++
-    veon_http:specs(application:get_env(veon, http, [])) ++
-    veon_xmpp:specs(application:get_env(veon, xmpp, [])) ++
-    veon_metrics:specs(application:get_env(veon, metrics, [])).
+    {{name}}_redis:specs(application:get_env({{name}}, redis, [])) ++
+    {{name}}_http:specs(application:get_env({{name}}, http, [])) ++
+    {{name}}_xmpp:specs(application:get_env({{name}}, xmpp, [])) ++
+    {{name}}_metrics:specs(application:get_env({{name}}, metrics, [])).

@@ -1,5 +1,5 @@
--module(veon_http_tests).
--author('manuel.rubio@veon.com').
+-module({{name}}_http_tests).
+-author('{{author_email}}').
 
 -include_lib("eunit/include/eunit.hrl").
 
@@ -10,7 +10,7 @@ init([]) ->
         #{strategy => one_for_one,
           intensity => 1,
           period => 1},
-        veon_http:specs([{veon_http, 8000}])
+        {{name}}_http:specs([{ {{name}}_http, 8000 }])
     }}.
 
 simple_request_test_() ->
