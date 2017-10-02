@@ -1,0 +1,25 @@
+{description, "Complete Skeletor template structure."}.
+{variables, [
+    {name, "veon", "Name of the base application to be created"},
+    {desc, "Skeletor app", "Description to be used for the skeleton"},
+    {author_name, "Manuel Rubio", "name of the author"},
+    {author_email, "manuel.rubio@veon.com", "email of the author"}
+]}.
+{file, ".gitignore", ".gitignore"}.
+{template, "README.md", "README.md"}.
+{template, "rebar.config", "rebar.config"}.
+{file, "rebar.lock", "rebar.lock"}.
+{file, "rebar3", "rebar3"}.
+{dir, "config"}.
+{template, "config/sys.config", "config/sys.config"}.
+{file, "config/vm.args", "config/vm.args"}.
+{dir, "src"}.
+{template, "src/veon.app.src", "src/{{name}}.app.src"}.
+{template, "src/veon_app.erl", "src/{{name}}_app.erl"}.
+{template, "src/veon_http.erl", "src/{{name}}_http.erl"}.
+{template, "src/veon_metrics.erl", "src/{{name}}_metrics.erl"}.
+{template, "src/veon_redis.erl", "src/{{name}}_redis.erl"}.
+{template, "src/veon_xmpp.erl", "src/{{name}}_xmpp.erl"}.
+{dir, "test"}.
+{template, "test/veon_app_tests.erl", "test/{{name}}_app_tests.erl"}.
+{template, "test/veon_http_tests.erl", "test/{{name}}_http_tests.erl"}.

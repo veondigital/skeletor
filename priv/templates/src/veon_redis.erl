@@ -1,12 +1,12 @@
--module(veon_redis).
--author('manuel.rubio@veon.com').
+-module({{name}}_redis).
+-author('{{author_email}}').
 
 -export([specs/1, q/1]).
 
 specs([]) ->
     [];
 specs(RedisCfg) ->
-    [ #{ id => veon_redis,
+    [ #{ id => ?MODULE,
          start => {eredis, start_link, get_cfg(RedisCfg)},
          restart => permanent,
          shutdown => 5000,
@@ -22,4 +22,4 @@ get_cfg(Cfg) ->
       proplists:get_value(reconnect_after, Cfg, 100) ].
 
 q(Query) ->
-    eredis:q(veon_redis, Query).
+    eredis:q(?MODULE, Query).

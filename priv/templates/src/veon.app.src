@@ -1,9 +1,8 @@
-{application, veon, [
-    %% TODO: change this information for your project
-    {description, "Base application for Veon projects"},
+{application, {{name}}, [
+    {description, "{{desc}}"},
     {vsn, git},
     {registered, []},
-    {mod, {veon_app, []}},
+    {mod, { {{name}}_app, []}},
     {applications, [
         kernel,
         stdlib,
@@ -20,6 +19,6 @@
     {env, []},
     {modules, []},
 
-    {maintainers, ["Manuel Rubio"]},
+    {maintainers, ["{{author_name}}"]},
     {licenses, ["Veon Propietary"]}
 ]}.

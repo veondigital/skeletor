@@ -1,5 +1,5 @@
--module(veon_http).
--author('manuel.rubio@veon.com').
+-module({{name}}_http).
+-author('{{author_email}}').
 
 -export([specs/1, handle/2, handle_event/3]).
 
