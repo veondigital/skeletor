@@ -112,10 +112,17 @@ The configuration in the *sys.config* file is as follow:
         {telemetry_registry, default},
         {port, 8081},
         {authorization, false}
+    ]},
+    {default_metrics, [
+        {histogram, [{name, users_online},
+                     {labels, [method]},
+                     {buckets, [100, 300, 500, 750, 1000]},
+                     {help, "Users online"}]}
     ]}
 ]}.
 ```
 
+Further information about the default metrics [here](https://github.com/deadtrickster/prometheus.erl#example-console-session).
 
 
 XMPP Connection
