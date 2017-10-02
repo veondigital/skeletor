@@ -147,3 +147,92 @@ Configuration
 We'll use the usual configuration for the most of the Erlang projects. The files `vm.args` and `sys.config` are located inside of the `config` directory.
 
 Ensure you have the configuration correctly filled there.
+
+Working with the Project
+========================
+
+Compiling and cleaning
+----------------------
+
+The way to compile everything is:
+
+```
+./rebar3 compile
+```
+
+This is in charge of download all of the needed dependencies and compile all of them. If you need to force the compilation you can perform first a clean:
+
+```
+./rebar3 clean
+```
+
+However, that's only cleaning the local code, the dependencies remain as are. To force the complete build of the system, you can remove the `_build` directory:
+
+```
+rm -rf _build
+```
+
+And then `compile` again.
+
+Testing
+-------
+
+The tests are placed in the `test` directory. You can create the tests you want against the code you created (or exists in the skeletor base). Usually the name of the files are corresponding one of the file in the `src` directory. That's because you can find `veon_app_tests` to test `veon_app` module.
+
+To create new ones ensure you follow that nomenclature to do an easy follow of the code and tests.
+
+To run the tests you only need to execute:
+
+```
+./rebar3 do xref, eunit, cover
+```
+
+These are three differente commands, but they work together to ensure your code is consistent. These commands are in charge of:
+
+- `xref` check if the functions you are using exist actually.
+- `eunit` run the EUnit tests you wrote under `test` directory.
+- `cover` generates the coverage output. HTML files placed in the directory `_build/test/cover` directory and a brief of all of the files in screen at the execution moment.
+
+Release
+-------
+
+To generate a new release you can execute:
+
+```
+./rebar3 as prod release
+
+```
+
+This command generates a release under `_build/prod/rel/veon` directory. The system could be run or executed using the command:
+
+```
+_build/prod/rel/veon/bin/veon console
+```
+
+That will start a foreground execution of the system with a shell where you can type commands. If you interrupt (Ctrl+C) the system, it'll finnish.
+
+To generate a tarball file you can run:
+
+```
+./rebar3 as prod tar
+```
+
+This will generate a tarball file in `_build/prod/rel/veon/veon-0.1.0.tar.gz` (note that the version depends on the version you used in the `veon.app.src` file).
+
+Release upgrades
+----------------
+
+To use the capability of non-stop you can create a `relup`. This is a new release from an older one (for example 0.2.0). You have to keep the previous one (at least the tarball file) and then instead of run `release`or `tar` you have to run:
+
+```
+./rebar3 as prod relup
+```
+
+Then a new release will be generated based on the previous one. This means you can use the `_build/prod/rel/veon/bin/veon upgrade ...` command.
+
+Troubleshooting
+---------------
+
+If you have some issues, you can create an issue in this project to do a following of that and solve it as soon as possible. In the same way, you can find in the list of issues just in case your issue happened to anyone else before and you can find there the solution.
+
+Enjoy!
