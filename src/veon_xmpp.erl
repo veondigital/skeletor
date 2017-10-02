@@ -11,9 +11,9 @@
 
 -record(state, {}).
 
--define(DEFAULT_HOST, "localhost").
+-define(DEFAULT_HOST, undefined).
 -define(DEFAULT_PORT, 8888).
--define(DEFAULT_DOMAIN, <<"comp.localhost">>).
+-define(DEFAULT_DOMAIN, undefined).
 -define(DEFAULT_PASS, <<"secret">>).
 
 specs(Opts) ->
@@ -37,6 +37,9 @@ specs(Opts) ->
          type => worker,
          modules => [claws_xmpp_comp]} ].
 
+start_link(#{host := H, domain := D} = ClawArgs)
+        when H =:= undefined orelse D =:= undefined ->
+    {ok, _PID} = claws_xmpp_comp:start_link(ClawArgs);
 start_link(ClawArgs) ->
     {ok, PID} = claws_xmpp_comp:start_link(ClawArgs),
     ok = claws_xmpp_comp:connect(),
