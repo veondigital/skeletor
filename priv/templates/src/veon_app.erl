@@ -1,4 +1,4 @@
--module({{name}}_app).
+-module('{{name}}_app').
 -author('{{author_email}}').
 
 -behaviour(application).
@@ -21,7 +21,7 @@ init([]) ->
     }}.
 
 children() ->
-    {{name}}_redis:specs(application:get_env({{name}}, redis, [])) ++
-    {{name}}_http:specs(application:get_env({{name}}, http, [])) ++
-    {{name}}_xmpp:specs(application:get_env({{name}}, xmpp, [])) ++
-    {{name}}_metrics:specs(application:get_env({{name}}, metrics, [])).
+    '{{name}}_redis':specs(application:get_env('{{name}}', redis, [])) ++
+    '{{name}}_http':specs(application:get_env('{{name}}', http, [])) ++
+    '{{name}}_xmpp':specs(application:get_env('{{name}}', xmpp, [])) ++
+    '{{name}}_metrics':specs(application:get_env('{{name}}', metrics, [])).

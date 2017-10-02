@@ -1,4 +1,4 @@
--module({{name}}_xmpp).
+-module('{{name}}_xmpp').
 -author('{{author_email}}').
 
 -behaviour(snatch).
@@ -24,13 +24,13 @@ specs(Opts) ->
         domain => proplists:get_value(domain, Opts, ?DEFAULT_DOMAIN),
         password => proplists:get_value(password, Opts, ?DEFAULT_PASS)
     }],
-    [ #{ id => {{name}}_xmpp_snatch,
+    [ #{ id => '{{name}}_xmpp_snatch',
          start => {snatch, start_link, SnatchArgs},
          restart => permanent,
          shutdown => 5000,
          type => worker,
          modules => [snatch]},
-      #{ id => {{name}}_xmpp_claw,
+      #{ id => '{{name}}_xmpp_claw',
          start => {?MODULE, start_link, ClawArgs},
          restart => permanent,
          shutdown => 5000,

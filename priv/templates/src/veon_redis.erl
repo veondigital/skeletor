@@ -1,4 +1,4 @@
--module({{name}}_redis).
+-module('{{name}}_redis').
 -author('{{author_email}}').
 
 -export([specs/1, q/1]).

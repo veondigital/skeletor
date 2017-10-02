@@ -11,9 +11,9 @@ The skeleton has a HTTP Interface for API created on top of [Elli](https://githu
 For the routing of the calls we can use the configuration as follow:
 
 ```erlang
-{ {{name}}, [
+{'{{name}}', [
     {http, [
-        { {{name}}_http, 8000}
+        {'{{name}}_http', 8000}
     ]}
 ]}
 ```
@@ -21,7 +21,7 @@ For the routing of the calls we can use the configuration as follow:
 It's possible only to create reating routes based on ports. The routing based on URI should be made inside of the module using pattern matching as suggested by the elli example in the web page:
 
 ```erlang
--module({{name}}_http).
+-module('{{name}}_http').
 -export([handle/2, handle_event/3]).
 
 -behaviour(elli_handler).
@@ -52,7 +52,7 @@ Redis connection
 The connection con Redis is granted using the configuration. For that you have to add there the following parameters:
 
 ```erlang
-{ {{name}}, [
+{'{{name}}', [
     {redis, [
         {host, "127.0.0.1"},
         {port, 6379},
@@ -67,7 +67,7 @@ The connection con Redis is granted using the configuration. For that you have t
 You could use Redis commands in whatever module:
 
 ```
-{ok, <<"OK">>} = eredis:q({{name}}_redis, ["SET", "foo", "bar"]).
+{ok, <<"OK">>} = eredis:q('{{name}}_redis', ["SET", "foo", "bar"]).
 ```
 
 The registered name `{{name}}_redis` is created from the [{{name}}_redis](src/{{name}}_redis.erl) wrapper to do the use of redis easier.
@@ -135,7 +135,7 @@ You can see the implementation of the behaviour in the [src/{{name}}_xmpp.erl](s
 The configuration for *sys.config* is as follow:
 
 ```erlang
-{ {{name}}, [
+{'{{name}}', [
     {xmpp, [
         {host, "localhost"},
         {port, 8888},
