@@ -13,7 +13,7 @@ Build
 Use
 ---
 
-Add the plugin to your rebar config:
+Create a base directory for your projects having `rebar3` script and a `rebar.config` file only with this configuration:
 
 ```
 {plugins, [
@@ -30,6 +30,6 @@ And then:
                        author_email="manuel.rubio@veon.com"
 ```
 
-In the generated `README.md` file you can find more information.
+This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
 
 Enjoy!
