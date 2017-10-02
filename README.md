@@ -24,10 +24,10 @@ Create a base directory for your projects having `rebar3` script and a `rebar.co
 And then:
 
 ```
-./rebar3 template skel name=veon \
-                       desc="A base service" \
-                       author_name="Manuel Rubio" \
-                       author_email="manuel.rubio@veon.com"
+./rebar3 new skel name=veon \
+                  desc="A base service" \
+                  author_name="Manuel Rubio" \
+                  author_email="manuel.rubio@veon.com"
 ```
 
 This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
