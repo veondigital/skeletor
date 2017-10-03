@@ -58,6 +58,7 @@ handle_info({received,
              #xmlel{name = <<"iq">>, attrs = Attrs,
                     children = [#xmlel{name = <<"ping">>}]},
              #via{}}, State) ->
+    prometheus_counter:inc(stanza_counter),
     ID = proplists:get_value(<<"id">>, Attrs),
     From = proplists:get_value(<<"from">>, Attrs),
     To = proplists:get_value(<<"to">>, Attrs),
@@ -73,7 +74,8 @@ handle_info({received, _Packet}, State) ->
 terminate(_Reason, _State) ->
     ok.
 
-send(Packet) ->
+send(Packet) is_binary(Packet) ->
+    prometheus_summary:observe(xmpp_kb_sent, byte_size(Packet)),
     snatch:send(Packet, <<>>).
 
 iq_resp(From, To, ID) ->

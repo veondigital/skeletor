@@ -30,6 +30,8 @@ get_cfg(Cfg) ->
       proplists:get_value(reconnect_after, Cfg, 100) ].
 
 q(Query) ->
-    poolboy:transaction(fun(PID) ->
+    {_, RedisPoolSize, _Overflow, _Monitors} = poolboy:status(?MODULE),
+    prometheus_gauge:set(redis_pool, RedisPoolSize),
+    poolboy:transaction(?MODULE, fun(PID) ->
         eredis:q(PID, Query)
     end).
