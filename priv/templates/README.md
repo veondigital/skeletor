@@ -59,20 +59,14 @@ The connection con Redis is granted using the configuration. For that you have t
         {database, 0},
         {password, ""},
         {connect_timeout, 5000},
-        {reconnect_after, 100}
+        {reconnect_after, 100},
+        {min_workers, 2},
+        {max_workers, 10}
     ]}
 ]}
 ```
 
-You could use Redis commands in whatever module:
-
-```
-{ok, <<"OK">>} = eredis:q('{{name}}_redis', ["SET", "foo", "bar"]).
-```
-
-The registered name `{{name}}_redis` is created from the [{{name}}_redis](src/{{name}}_redis.erl) wrapper to do the use of redis easier.
-
-You can use this as well:
+Redis is running under `poolboy` so, you can use the simplification `{{name}}_redis:q/1` as follow:
 
 ```
 {ok, <<"OK">>} = {{name}}_redis:q(["SET", "foo", "bar"]).

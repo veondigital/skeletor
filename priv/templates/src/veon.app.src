@@ -10,6 +10,7 @@
         sasl,
         inets,
         snatch,
+        poolboy,
         eredis,
         elli,
         prometheus,
