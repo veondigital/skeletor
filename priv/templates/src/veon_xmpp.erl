@@ -74,7 +74,7 @@ handle_info({received, _Packet}, State) ->
 terminate(_Reason, _State) ->
     ok.
 
-send(Packet) is_binary(Packet) ->
+send(Packet) when is_binary(Packet) ->
     prometheus_summary:observe(xmpp_kb_sent, byte_size(Packet)),
     snatch:send(Packet, <<>>).
 

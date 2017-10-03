@@ -13,7 +13,7 @@ specs(RedisCfg) ->
                 {worker_module, eredis},
                 {size, min_workers(RedisCfg)},
                 {max_overflow, max_workers(RedisCfg)}],
-    poolboy:child_spec(?MODULE, PoolArgs, get_cfg(RedisCfg)).
+    [poolboy:child_spec(?MODULE, PoolArgs, get_cfg(RedisCfg))].
 
 min_workers(Cfg) ->
     proplists:get_value(min_workers, Cfg, ?DEFAULT_MIN_WORKERS).
