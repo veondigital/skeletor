@@ -13,6 +13,7 @@
         poolboy,
         eredis,
         elli,
+        jsone,
         prometheus,
         prometheus_httpd,
         recon
