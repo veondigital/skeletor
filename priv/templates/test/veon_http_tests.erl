@@ -25,6 +25,6 @@ simple_request_test_() ->
     end}.
 
 request(URL) ->
-    {ok, {{_, Code, _}, _Headers, Content}} =
+    {ok, { {_, Code, _}, _Headers, Content} } =
         httpc:request(get, {URL, []}, [], []),
     {Code, Content}.
