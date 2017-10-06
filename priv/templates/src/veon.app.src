@@ -1,8 +1,8 @@
-{application, {{name}}, [
+{application, '{{name}}', [
     {description, "{{desc}}"},
     {vsn, git},
     {registered, []},
-    {mod, { {{name}}_app, []}},
+    {mod, {'{{name}}_app', []}},
     {applications, [
         kernel,
         stdlib,
@@ -10,8 +10,10 @@
         sasl,
         inets,
         snatch,
+        poolboy,
         eredis,
         elli,
+        jsone,
         prometheus,
         prometheus_httpd,
         recon

@@ -1,4 +1,4 @@
--module({{name}}_http).
+-module('{{name}}_http').
 -author('{{author_email}}').
 
 -export([specs/1, handle/2, handle_event/3]).

@@ -1,4 +1,4 @@
--module({{name}}_xmpp).
+-module('{{name}}_xmpp').
 -author('{{author_email}}').
 
 -behaviour(snatch).
@@ -24,13 +24,13 @@ specs(Opts) ->
         domain => proplists:get_value(domain, Opts, ?DEFAULT_DOMAIN),
         password => proplists:get_value(password, Opts, ?DEFAULT_PASS)
     }],
-    [ #{ id => {{name}}_xmpp_snatch,
+    [ #{ id => '{{name}}_xmpp_snatch',
          start => {snatch, start_link, SnatchArgs},
          restart => permanent,
          shutdown => 5000,
          type => worker,
          modules => [snatch]},
-      #{ id => {{name}}_xmpp_claw,
+      #{ id => '{{name}}_xmpp_claw',
          start => {?MODULE, start_link, ClawArgs},
          restart => permanent,
          shutdown => 5000,
@@ -58,6 +58,7 @@ handle_info({received,
              #xmlel{name = <<"iq">>, attrs = Attrs,
                     children = [#xmlel{name = <<"ping">>}]},
              #via{}}, State) ->
+    prometheus_counter:inc(stanza_counter),
     ID = proplists:get_value(<<"id">>, Attrs),
     From = proplists:get_value(<<"from">>, Attrs),
     To = proplists:get_value(<<"to">>, Attrs),
@@ -73,7 +74,8 @@ handle_info({received, _Packet}, State) ->
 terminate(_Reason, _State) ->
     ok.
 
-send(Packet) ->
+send(Packet) when is_binary(Packet) ->
+    prometheus_summary:observe(xmpp_kb_sent, byte_size(Packet)),
     snatch:send(Packet, <<>>).
 
 iq_resp(From, To, ID) ->

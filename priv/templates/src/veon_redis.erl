@@ -1,17 +1,25 @@
--module({{name}}_redis).
+-module('{{name}}_redis').
 -author('{{author_email}}').
 
 -export([specs/1, q/1]).
 
+-define(DEFAULT_MIN_WORKERS, 2).
+-define(DEFAULT_MAX_WORKERS, 10).
+
 specs([]) ->
     [];
 specs(RedisCfg) ->
-    [ #{ id => ?MODULE,
-         start => {eredis, start_link, get_cfg(RedisCfg)},
-         restart => permanent,
-         shutdown => 5000,
-         type => worker,
-         modules => [eredis]} ].
+    PoolArgs = [{name, {local, ?MODULE}},
+                {worker_module, eredis},
+                {size, min_workers(RedisCfg)},
+                {max_overflow, max_workers(RedisCfg)}],
+    [poolboy:child_spec(?MODULE, PoolArgs, get_cfg(RedisCfg))].
+
+min_workers(Cfg) ->
+    proplists:get_value(min_workers, Cfg, ?DEFAULT_MIN_WORKERS).
+
+max_workers(Cfg) ->
+    proplists:get_value(max_workers, Cfg, ?DEFAULT_MAX_WORKERS).
 
 get_cfg(Cfg) ->
     [ proplists:get_value(host, Cfg, undefined),
@@ -22,4 +30,8 @@ get_cfg(Cfg) ->
       proplists:get_value(reconnect_after, Cfg, 100) ].
 
 q(Query) ->
-    eredis:q(?MODULE, Query).
+    {_, RedisPoolSize, _Overflow, _Monitors} = poolboy:status(?MODULE),
+    prometheus_gauge:set(redis_pool, RedisPoolSize),
+    poolboy:transaction(?MODULE, fun(PID) ->
+        eredis:q(PID, Query)
+    end).

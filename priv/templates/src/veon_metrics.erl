@@ -1,4 +1,4 @@
--module({{name}}_metrics).
+-module('{{name}}_metrics').
 -author('{{author_email}}').
 
 -export([specs/1]).
