@@ -1,7 +1,8 @@
 skeletor
 =====
 
-This project is the base to create other Erlang projects. This file is a small guide to give you an idea of what is provided by the skeleton and what should be implemented.
+An Erlanhg Rebar Template to bootstrap HTTP and XMPP based Applications. 
+It consists in an Application Core, an HTTP Handler, an XMPP handler and a Redis connectivity module.
 
 ![Skeletor](https://gitlab.knoopje.com/communications/skeletor/raw/development/skeletor.jpg)
 
