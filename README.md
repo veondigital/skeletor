@@ -2,7 +2,7 @@ skeletor
 =====
 
 An Erlanhg Rebar Template to bootstrap HTTP and XMPP based Applications. 
-It consists in an Application Core, an HTTP Handler, an XMPP handler and a Redis connectivity module.
+It consists in an Application Core, an HTTP Handler, an XMPP handler, a prometheus metric collector and also a Redis connectivity module.
 
 ![Skeletor](https://gitlab.knoopje.com/communications/skeletor/raw/development/skeletor.jpg)
 
@@ -33,6 +33,6 @@ And then:
                   author_email="manuel.rubio@veon.com"
 ```
 
-This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
+This generates a new directory using the project name used on rebar3 command. Containing a ready to se base for your project.
 
 Enjoy!
