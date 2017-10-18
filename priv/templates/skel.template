@@ -23,4 +23,7 @@
 {dir, "{{name}}/test"}.
 {template, "test/veon_app_tests.erl", "{{name}}/test/{{name}}_app_tests.erl"}.
 {template, "test/veon_http_tests.erl", "{{name}}/test/{{name}}_http_tests.erl"}.
+{template, "test/veon_xmpp_tests.erl", "{{name}}/test/{{name}}_xmpp_tests.erl"}.
+{dir, "{{name}}/test/functional"}.
+{template, "test/functional/xmpp_ping.xml", "{{name}}/test/functional/xmpp_ping.xml"}.
 {chmod, "{{name}}/rebar3", 8#755}.
