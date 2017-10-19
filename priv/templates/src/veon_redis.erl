@@ -2,6 +2,7 @@
 -author('{{author_email}}').
 
 -export([specs/1, q/1]).
+-import(veon_app, [to_int/1]).
 
 -define(DEFAULT_MIN_WORKERS, 2).
 -define(DEFAULT_MAX_WORKERS, 10).
@@ -23,11 +24,11 @@ max_workers(Cfg) ->
 
 get_cfg(Cfg) ->
     [ proplists:get_value(host, Cfg, undefined),
-      proplists:get_value(port, Cfg, 6379),
-      proplists:get_value(database, Cfg, 0),
+      to_int(proplists:get_value(port, Cfg, 6379)),
+      to_int(proplists:get_value(database, Cfg, 0)),
       proplists:get_value(password, Cfg, ""),
-      proplists:get_value(connect_timeout, Cfg, 5000),
-      proplists:get_value(reconnect_after, Cfg, 100) ].
+      to_int(proplists:get_value(connect_timeout, Cfg, 5000)),
+      to_int(proplists:get_value(reconnect_after, Cfg, 100)) ].
 
 q(Query) ->
     {_, RedisPoolSize, _Overflow, _Monitors} = poolboy:status(?MODULE),

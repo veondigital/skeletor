@@ -5,6 +5,7 @@
 -behaviour(supervisor).
 
 -export([start/2, stop/1, init/1]).
+-export([to_int/1, to_str/1]).
 
 start(_Type, _Args) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
@@ -25,3 +26,11 @@ children() ->
     '{{name}}_http':specs(application:get_env('{{name}}', http, [])) ++
     '{{name}}_xmpp':specs(application:get_env('{{name}}', xmpp, [])) ++
     '{{name}}_metrics':specs(application:get_env('{{name}}', metrics, [])).
+
+to_int(Num) when is_number(Num) -> Num;
+to_int(Str) when is_list(Str) -> list_to_integer(Str);
+to_int(Bin) when is_binary(Bin) -> binary_to_integer(Bin).
+
+to_str(Num) when is_integer(Num) -> integer_to_list(Num);
+to_str(Str) when is_list(Str) -> Str;
+to_str(Bin) when is_binary(Bin) -> binary_to_list(Bin).
