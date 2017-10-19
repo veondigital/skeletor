@@ -8,7 +8,6 @@
 
 -export([specs/1, init/1, handle_info/2, terminate/2, send/1,
          start_link/1]).
--import(veon_app, [to_int/1]).
 
 -record(state, {}).
 
@@ -21,7 +20,7 @@ specs(Opts) ->
     SnatchArgs = [claws_xmpp_comp, ?MODULE, []],
     ClawArgs = [#{
         host => proplists:get_value(host, Opts, ?DEFAULT_HOST),
-        port => to_int(proplists:get_value(port, Opts, ?DEFAULT_PORT)),
+        port => proplists:get_value(port, Opts, ?DEFAULT_PORT),
         domain => proplists:get_value(domain, Opts, ?DEFAULT_DOMAIN),
         password => proplists:get_value(password, Opts, ?DEFAULT_PASS)
     }],

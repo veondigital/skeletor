@@ -2,7 +2,6 @@
 -author('{{author_email}}').
 
 -export([specs/1, handle/2, handle_event/3]).
--import(veon_app, [to_int/1, to_str/1]).
 
 -behaviour(elli_handler).
 
@@ -14,11 +13,11 @@ specs(ElliOps) ->
          type => worker,
          modules => [elli]} || ElliOp <- ElliOps ].
 
-get_id({_Module, Port}) ->
-    list_to_atom("http_interface_port_" ++ to_str(Port)).
+get_id({_Module, Port}) when is_integer(Port) ->
+    list_to_atom("http_interface_port_" ++ integer_to_list(Port)).
 
-get_cfg({Module, Port}) ->
-    [{callback, Module}, {port, to_int(Port)}].
+get_cfg({Module, Port}) when is_atom(Module) andalso is_integer(Port) ->
+    [{callback, Module}, {port, Port}].
 
 handle(Req, _Args) ->
     %% Delegate to our handler function
