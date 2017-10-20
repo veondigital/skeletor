@@ -29,7 +29,9 @@ And then:
 ./rebar3 new skel name=veon \
                   desc="A base service" \
                   author_name="Manuel Rubio" \
-                  author_email="manuel.rubio@veon.com"
+                  author_email="manuel.rubio@veon.com" \
+                  git_access="git@git.knoopje.com" \
+                  git_project="communications/veon"
 ```
 
 This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
