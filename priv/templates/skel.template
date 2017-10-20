@@ -30,3 +30,4 @@
 {dir, "{{name}}/script"}.
 {template, "script/start-prod.sh", "{{name}}/script/start-prod.sh"}.
 {chmod, "{{name}}/script/start-prod.sh", 8#755}.
+{template, "Dockerfile", "{{name}}/Dockerfile"}.
