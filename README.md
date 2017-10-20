@@ -30,7 +30,7 @@ And then:
                   desc="A base service" \
                   author_name="Manuel Rubio" \
                   author_email="manuel.rubio@veon.com" \
-                  git_access="git@git.knoopje.com" \
+                  git_access="git@git.knoopje.com:" \
                   git_project="communications/veon"
 ```
 
