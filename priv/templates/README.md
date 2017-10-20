@@ -218,6 +218,19 @@ To generate a tarball file you can run:
 
 This will generate a tarball file in `_build/prod/rel/{{name}}/{{name}}-0.1.0.tar.gz` (note that the version depends on the version you used in the `{{name}}.app.src` file).
 
+Docker image
+------------
+
+The system is prepared to build an image with the base code of the component inside. You only needs to run:
+
+```
+./rebar3 as prod do docker
+```
+
+This creates the image `erlang/{{name}}` and when is created it's exported to the `{{name}}.tar.gz` file and then the image is removed.
+
+Note that to works with this you have to install Docker first. You can do this easily in MacOS and GNU/Linux. Check the Docker website for further information.
+
 Running a release
 -----------------
 
