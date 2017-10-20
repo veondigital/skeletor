@@ -34,4 +34,6 @@ And then:
 
 This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
 
+For further information read the [how-to here!](doc/how-to.md)
+
 Enjoy!
