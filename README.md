@@ -1,7 +1,8 @@
 skeletor
 =====
 
-This project is the base to create other Erlang projects. This file is a small guide to give you an idea of what is provided by the skeleton and what should be implemented.
+An Erlanhg Rebar Template to bootstrap HTTP and XMPP based Applications. 
+It consists in an Application Core, an HTTP Handler, an XMPP handler, a prometheus metric collector and also a Redis connectivity module.
 
 ![Skeletor](https://gitlab.knoopje.com/communications/skeletor/raw/development/skeletor.jpg)
 
@@ -34,7 +35,7 @@ And then:
                   git_project="communications/veon"
 ```
 
-This generates a new directory called as the name you put as a variable with all of the base content you need to start to create your project.
+This generates a new directory using the project name used on rebar3 command. Containing a ready to se base for your project.
 
 For further information read the [how-to here!](doc/how-to.md)
 
