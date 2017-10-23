@@ -20,7 +20,9 @@ init(State) ->
             {example, "rebar3 docker"}, % How to use the plugin
             {opts, [
                 % list of options understood by the plugin
-                {erlang_vsn, $e, "erlang-vsn", {string, "19.3"}, "specify the Erlang version to use"}
+                {erlang_vsn, $e, "erlang-vsn", {string, "19.3"}, "specify the Erlang version to use"},
+                {delete_img, $k, "keep-img", integer, "no remove image"},
+                {compress_img, $C, "no-gzip", integer, "no compress (gzip -9) the exported image"}
             ]},
             {short_desc, "Create a docker image with the release inside"},
             {desc, "Create a docker image with the release inside. It uses Debian Stretch and Erlang 19.3 as default."}
@@ -39,15 +41,38 @@ do(State) ->
          "docker build -t erlang/" ++ Name ++
                      " --build-arg ERLANG_VSN=" ++ VSN ++ " ."},
         {{"Exporting image ~s.tar", [Name]},
-         "docker save -o " ++ Name ++ ".tar erlang/" ++ Name},
-        {{"Compressing image ~s.tar.gz", [Name]},
-         "gzip -9 " ++ Name ++ ".tar"},
-        {{"Removing image erlang/~s", [Name]},
-         "docker rmi erlang/" ++ Name}
-    ],
+         "docker save -o " ++ Name ++ ".tar erlang/" ++ Name}
+    ] ++ maybe_compress(Args, Name) ++ maybe_remove(Args, Name),
     lists:foreach(fun run_cmd/1, Commands),
-    rebar_api:info("Created ~s.tar.gz", [Name]),
+    case is_compress(Args) of
+        true -> rebar_api:info("Created ~s.tar.gz", [Name]);
+        false -> rebar_api:info("Created ~s.tar", [Name])
+    end,
     {ok, State}.
+
+is_remove(Args) ->
+    proplists:get_value(delete_img, Args) =:= 0.
+
+maybe_remove(Args, Name) ->
+    case is_remove(Args) of
+        true ->
+            [{{"Removing image erlang/~s", [Name]},
+              "docker rmi erlang/" ++ Name}];
+        false ->
+            []
+    end.
+
+is_compress(Args) ->
+    proplists:get_value(compress_img, Args) =:= 0.
+
+maybe_compress(Args, Name) ->
+    case is_compress(Args) of
+        true ->
+            [{{"Compressing image ~s.tar.gz", [Name]},
+              "gzip -9 " ++ Name ++ ".tar"}];
+        false ->
+            []
+    end.
 
 -spec format_error(any()) ->  iolist().
 format_error(Reason) ->
