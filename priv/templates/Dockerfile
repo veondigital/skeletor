@@ -18,11 +18,10 @@ RUN apt-get clean
 
 WORKDIR /usr/local/src
 RUN curl -O http://erlang.org/download/otp_src_$ERLANG_VSN.tar.gz
-RUN tar xzf otp_src_$ERLANG_VSN.tar.gz
+RUN tar xzvf otp_src_$ERLANG_VSN.tar.gz
 
 WORKDIR /usr/local/src/otp_src_$ERLANG_VSN
-RUN ./configure --prefix=/usr/local
-RUN make && make install
+RUN ./configure --prefix=/usr/local && make && make install
 
 ADD . /opt/{{name}}_src
 WORKDIR /opt/{{name}}_src

@@ -14,5 +14,10 @@ export XMPP_PORT="${XMPP_PORT:-8888}"
 export XMPP_DOMAIN="${XMPP_DOMAIN:-comp.localhost}"
 export XMPP_SECRET="${XMPP_SECRET:-secret}"
 
+echo "Environment..."
+echo "--------------->>>"
+env | egrep -v "^(PWD|HOME|DEBIAN_FRONTEND|no_proxy|TERM|SHLVL|_)="
+echo "<<<---------------"
+
 $(dirname $0)/<% name %> $@
 <%={{ }}=%>
