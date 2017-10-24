@@ -218,6 +218,42 @@ To generate a tarball file you can run:
 
 This will generate a tarball file in `_build/prod/rel/{{name}}/{{name}}-0.1.0.tar.gz` (note that the version depends on the version you used in the `{{name}}.app.src` file).
 
+Docker image
+------------
+
+The system is prepared to build an image with the base code of the component inside. You only needs to run:
+
+```
+./rebar3 as prod do docker
+```
+
+This creates the image `erlang/{{name}}` and when is created it's exported to the `{{name}}.tar.gz` file and then the image is removed.
+
+Note that to works with this you have to install Docker first. You can do this easily in MacOS and GNU/Linux. Check the Docker website for further information.
+
+Running a release
+-----------------
+
+A release is packaged with all of you need to run the system: binaries, erts (including BEAM), configuration and scripts.
+
+The configuration, as is, isn't complete. We have a set of environment variables that should be defined to work properly. I'm going to add here all of them. Ideally you have to set them before (or in the same line) you run the `{{name}}` command.
+
+- `NODE_NAME` (vm.args) this variable set the name to be used. You can set only the node part of the node name or the whole one. Note that the name is configured using `-name` so you should to provide a FQDN if you want to configure the whole node name (default: {{name}}).
+- `NODE_COOKIE` (vm.args) contains the cookie used to connect to other Erlang nodes (default: {{name}}_cookie).
+- `HTTP_PORT` (sys.config) the HTTP interface included in the application is starting using a port. This must to be defined using this environment variable to avoid to fail (default: 8000).
+- `REDIS_HOST` (sys.config) the Redis IP or hostname which to connect (default: 127.0.0.1).
+- `REDIS_PORT` (sys.config) the Redis port which to connect (default: 6379).
+- `REDIS_DB` (sys.config) the Redis database (default: 0).
+- `REDIS_PASS` (sys.config) the Redis password to access to the database. Usually Redis hasn't password configured (default is empty: "").
+- `XMPP_HOST` (sys.config) XMPP Server which to connect (default: 127.0.0.1).
+- `XMPP_PORT` (sys.config) XMPP Server port which to connect as a component (default: 8888).
+- `XMPP_DOMAIN` (sys.config) XMPP Domain which will be in use to the XMPP connection (default: comp.localhost).
+- `XMPP_SECRET` (sys.config) XMPP Secret to use in the component connection for the XMPP Server (default: secret).
+
+If you want to change some or all of these configuration data, you only need to provide them as environment variables.
+
+Those variables are defined inside of the `start-prod.sh` script available in the *bin* directory when you create a release (and in the `script` directory as source base).
+
 Release upgrades
 ----------------
 

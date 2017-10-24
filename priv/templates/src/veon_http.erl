@@ -16,7 +16,7 @@ specs(ElliOps) ->
 get_id({_Module, Port}) when is_integer(Port) ->
     list_to_atom("http_interface_port_" ++ integer_to_list(Port)).
 
-get_cfg({Module, Port}) ->
+get_cfg({Module, Port}) when is_atom(Module) andalso is_integer(Port) ->
     [{callback, Module}, {port, Port}].
 
 handle(Req, _Args) ->

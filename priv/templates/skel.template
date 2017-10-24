@@ -3,7 +3,9 @@
     {name, "veon", "Name of the base application to be created"},
     {desc, "Skeletor app", "Description to be used for the skeleton"},
     {author_name, "Manuel Rubio", "name of the author"},
-    {author_email, "manuel.rubio@veon.com", "email of the author"}
+    {author_email, "manuel.rubio@veon.com", "email of the author"},
+    {git_access, "git@git.knoopje.com"},
+    {git_project, "communications/veon"}
 ]}.
 {file, ".gitignore", "{{name}}/.gitignore"}.
 {template, "README.md", "{{name}}/README.md"}.
@@ -27,3 +29,7 @@
 {dir, "{{name}}/test/functional"}.
 {template, "test/functional/xmpp_ping.xml", "{{name}}/test/functional/xmpp_ping.xml"}.
 {chmod, "{{name}}/rebar3", 8#755}.
+{dir, "{{name}}/script"}.
+{template, "script/start-prod.sh", "{{name}}/script/start-prod.sh"}.
+{chmod, "{{name}}/script/start-prod.sh", 8#755}.
+{template, "Dockerfile", "{{name}}/Dockerfile"}.

@@ -30,9 +30,13 @@ And then:
 ./rebar3 new skel name=veon \
                   desc="A base service" \
                   author_name="Manuel Rubio" \
-                  author_email="manuel.rubio@veon.com"
+                  author_email="manuel.rubio@veon.com" \
+                  git_access="git@git.knoopje.com:" \
+                  git_project="communications/veon"
 ```
 
 This generates a new directory using the project name used on rebar3 command. Containing a ready to se base for your project.
+
+For further information read the [how-to here!](doc/how-to.md)
 
 Enjoy!
