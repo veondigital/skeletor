@@ -24,7 +24,7 @@
  {<<"recon">>,{pkg,<<"recon">>,<<"2.3.2">>},0},
  {<<"snatch">>,
   {git,"https://github.com/manuel-rubio/snatch.git",
-       {ref,"12ac91b494804d86cfcc1d3a47910ddf1de812bf"}},
+       {ref,"d86c517f74c9ab5aac8fde59322c7e28c3c6be6c"}},
   0},
  {<<"stringprep">>,{pkg,<<"stringprep">>,<<"1.0.9">>},2},
  {<<"xmpp">>,
