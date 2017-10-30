@@ -23,12 +23,7 @@ RUN tar xzvf otp_src_$ERLANG_VSN.tar.gz
 WORKDIR /usr/local/src/otp_src_$ERLANG_VSN
 RUN ./configure --prefix=/usr/local && make && make install
 
-ADD . /opt/{{name}}_src
-WORKDIR /opt/{{name}}_src
-RUN ./rebar3 as prod do release
-RUN mv /opt/{{name}}_src/_build/prod/rel/{{name}} /opt/
-
+RUN mkdir -p /opt/{{name}}
 WORKDIR /opt/{{name}}
-RUN rm -rf /opt/{{name}}_src /usr/local/src/otp_src_$ERLANG_VSN*
 
-ENTRYPOINT ["/opt/{{name}}/bin/start-prod.sh", "console"]
+ENTRYPOINT ["/opt/{{name}}/rebar3", "as", "prod", "release"]

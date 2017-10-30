@@ -21,8 +21,8 @@ init(State) ->
             {opts, [
                 % list of options understood by the plugin
                 {erlang_vsn, $e, "erlang-vsn", {string, "19.3"}, "specify the Erlang version to use"},
-                {delete_img, $k, "keep-img", integer, "no remove image"},
-                {compress_img, $C, "no-gzip", integer, "no compress (gzip -9) the exported image"}
+                {no_delete_img, $k, "keep-img", integer, "no remove image"},
+                {no_compress_img, $C, "no-gzip", integer, "no compress (gzip -9) the exported image"}
             ]},
             {short_desc, "Create a docker image with the release inside"},
             {desc, "Create a docker image with the release inside. It uses Debian Stretch and Erlang 19.3 as default."}
@@ -37,9 +37,18 @@ do(State) ->
     rebar_api:info("Erlang version ~s", [VSN]),
     Name = filename:basename(rebar_state:dir(State)),
     Commands = [
-        {{"Building image erlang/~s", [Name]},
+        {{"Building image erlang/build-~s", [Name]},
+         "docker build -t erlang/build-" ++ Name ++
+                     " --build-arg ERLANG_VSN=" ++ VSN ++
+                     " -f Dockerfile.build " ++
+                     " ."},
+        {{"Running builder erlang/build-~s", [Name]},
+         "docker run --rm -v `pwd`:/opt/veon -i "
+         "erlang/build-" ++ Name},
+        {{"Building final image erlang/~s", [Name]},
          "docker build -t erlang/" ++ Name ++
-                     " --build-arg ERLANG_VSN=" ++ VSN ++ " ."},
+                     " -f Dockerfile.release " ++
+                     " ."},
         {{"Exporting image ~s.tar", [Name]},
          "docker save -o " ++ Name ++ ".tar erlang/" ++ Name}
     ] ++ maybe_compress(Args, Name) ++ maybe_remove(Args, Name),
@@ -51,19 +60,21 @@ do(State) ->
     {ok, State}.
 
 is_remove(Args) ->
-    proplists:get_value(delete_img, Args) =:= 0.
+    proplists:get_value(no_delete_img, Args) =:= undefined.
 
 maybe_remove(Args, Name) ->
     case is_remove(Args) of
         true ->
             [{{"Removing image erlang/~s", [Name]},
-              "docker rmi erlang/" ++ Name}];
+              "docker rmi erlang/" ++ Name},
+             {{"Removing image erlang/build-~s", [Name]},
+              "docker rmi -f erlang/build-" ++ Name}];
         false ->
             []
     end.
 
 is_compress(Args) ->
-    proplists:get_value(compress_img, Args) =:= 0.
+    proplists:get_value(no_compress_img, Args) =:= undefined.
 
 maybe_compress(Args, Name) ->
     case is_compress(Args) of
