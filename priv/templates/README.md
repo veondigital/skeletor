@@ -231,6 +231,46 @@ This creates the image `erlang/{{name}}` and when is created it's exported to th
 
 Note that to works with this you have to install Docker first. You can do this easily in MacOS and GNU/Linux. Check the Docker website for further information.
 
+The way it's working is creating two images actually. The first one is called `erlang/build-{{name}}` and the second one is `erlang/{{name}}`. The first one is intended to compile and build the release. The second one is only to contain the final artifact and export the image containing everything needed to run the system.
+
+The options you can use with this command (`docker`) are the following:
+
+- `--only-build` (or `-b`) let you to do only the first step, compile and generate the release. It uses and creates only the first image (`erlang/build-{{name}}`), run it to create the artifact and then remove it.
+- `--only-package` (or `-p`) let you to do only the release/package step. It is on charge of create the second image (`erlang/{{name}}`) and put the artifact inside. It also create the tarball file and compress it.
+- `--erlang-vsn` (or `-e`) let you to decide which version of Erlang/OTP you want to use to build and create the release. The Erlang/OTP system is embeded inside of the artifact so you can use whatever version that fits well with your code. According to snatch, elli and other dependencies, you should to choose the 19.3 as recommended or greater.
+- `--keep-img` (or `-k`) let you to keep the images generated. Both `erlang/build-{{name}}` and `erlang/{{name}}` are kept if you use this option.
+- `--no-gzip` (or `-C`) avoid to generate the compressed version of the artifact. By default the system creates the file `{{name}}.tar`. There are another step to create the file `{{name}}.tar.gz` but if you use this option this last step is not performed.
+
+For example, if we want to build the artifact (compilation only) and avoid to remove the building image:
+
+```
+./rebar3 as prod do docker -b -k
+```
+
+Or using the extended arguments:
+
+```
+./rebar3 as prod do docker --only-build --keep-img
+```
+
+This could help to compile and recompile faster if you keep the image. This way the previous steps are not performed (there are performed previously) and only the compilation is performed.
+
+This way you can perform after that the packaging in this way:
+
+```
+./rebar3 as prod do docker --only-package --no-gzip
+```
+
+Note that the final artifact is only around 200MB. If you perform the compression step (takes almost a minute) and it could compress until 80MB or a bit less. It's your choice compress or not.
+
+To perform a CI generation you could do it in this way:
+
+```
+./rebar3 as prod do docker --erlang-vsn 19.3 --no-gzip
+```
+
+This way you keep the images, you are selection explicitly the Erlang/OTP version and avoiding the compression step. Sometimes in the CI systems it's better to perform all of the steps to avoid weird behaviours derivated to previous builds, that's the reason because I'm not keeping the images in this command.
+
 Running a release
 -----------------
 
