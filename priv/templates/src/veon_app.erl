@@ -24,7 +24,7 @@ init([]) ->
 children() ->
     '{{name}}_redis':specs(application:get_env('{{name}}', redis, [])) ++
     '{{name}}_http':specs(application:get_env('{{name}}', http, [])) ++
-    '{{name}}_xmpp':specs(application:get_env('{{name}}', xmpp, [])) ++
+    '{{name}}_snatch':specs(application:get_env('{{name}}', xmpp, [])) ++
     '{{name}}_metrics':specs(application:get_env('{{name}}', metrics, [])).
 
 to_int(Num) when is_number(Num) -> Num;
