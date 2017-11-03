@@ -21,7 +21,7 @@
 {template, "src/veon_http.erl", "{{name}}/src/{{name}}_http.erl"}.
 {template, "src/veon_metrics.erl", "{{name}}/src/{{name}}_metrics.erl"}.
 {template, "src/veon_redis.erl", "{{name}}/src/{{name}}_redis.erl"}.
-{template, "src/veon_xmpp.erl", "{{name}}/src/{{name}}_xmpp.erl"}.
+{template, "src/veon_snatch.erl", "{{name}}/src/{{name}}_snatch.erl"}.
 {dir, "{{name}}/test"}.
 {template, "test/veon_app_tests.erl", "{{name}}/test/{{name}}_app_tests.erl"}.
 {template, "test/veon_http_tests.erl", "{{name}}/test/{{name}}_http_tests.erl"}.
