@@ -22,18 +22,23 @@
 }).
 
 -define(DEFAULT_HOST, undefined).
--define(DEFAULT_PORT, 8888).
+-define(DEFAULT_PORT_XMPP, 8888).
+-define(DEFAULT_PORT_REST, 80).
 -define(DEFAULT_DOMAIN, undefined).
 -define(DEFAULT_PASS, <<"secret">>).
+-define(DEFAULT_SCHEMA, "http").
+-define(DEFAULT_MAX_SESSIONS, 10).
+-define(DEFAULT_PIPELINE_SIZE, 1).
 
 specs(Opts) ->
     SnatchArgs = [claws_xmpp_comp, ?MODULE],
     XmppOpts = proplists:get_value(xmpp, Opts, []),
     KafkaOpts = proplists:get_value(kafka, Opts, []),
+    RestOpts = proplists:get_value(rest, Opts, []),
     Domain = proplists:get_value(domain, XmppOpts, ?DEFAULT_DOMAIN),
     XmppArgs = [#{
         host => proplists:get_value(host, XmppOpts, ?DEFAULT_HOST),
-        port => proplists:get_value(port, XmppOpts, ?DEFAULT_PORT),
+        port => proplists:get_value(port, XmppOpts, ?DEFAULT_PORT_XMPP),
         domain => Domain,
         password => proplists:get_value(password, XmppOpts, ?DEFAULT_PASS)
     }],
@@ -44,6 +49,15 @@ specs(Opts) ->
         out_partition => proplists:get_value(out_partition, KafkaOpts, 0),
         trimmed => proplists:get_value(trimmed, KafkaOpts, false),
         raw => proplists:get_value(raw, KafkaOpts, false)
+    }],
+    RestArgs = [#{
+        domain => proplists:get_value(domain, RestOpts, undefined),
+        port => proplists:get_value(port, RestOpts, ?DEFAULT_PORT_REST),
+        schema => proplists:get_value(schema, RestOpts, ?DEFAULT_SCHEMA),
+        max_sessions => proplists:get_value(max_sessions, RestOpts,
+                                            ?DEFAULT_MAX_SESSIONS),
+        max_pipeline_size => proplists:get_value(max_pipeline_size, RestOpts,
+                                                 ?DEFAULT_PIPELINE_SIZE)
     }],
     [ #{ id => '{{name}}_xmpp_snatch',
          start => {snatch, start_link, SnatchArgs},
@@ -63,6 +77,17 @@ specs(Opts) ->
          shutdown => 5000,
          type => worker,
          modules => [?MODULE]} ] ++
+    case RestArgs of
+        [#{domain := undefined}] ->
+            [];
+        _ ->
+            [#{ id => '{{name}}_rest_claw',
+                start => {claws_rest, start_link, RestArgs},
+                restart => permanent,
+                shutdown => 5000,
+                type => worker,
+                modules => [claws_rest]}]
+    end ++
     case KafkaArgs of
         [#{endpoints := undefined}] ->
             [];
@@ -123,6 +148,10 @@ handle_info({received, _Packet, #via{claws = claws_xmpp_comp}}, State) ->
 
 handle_info({received, _Packet, #via{claws = claws_kafka}}, State) ->
     %% TODO code about incoming messages from Kafka
+    {noreply, State};
+
+handle_info({received, _Packet, #via{claws = claws_rest}}, State) ->
+    %% TODO code about incoming messages from REST
     {noreply, State};
 
 handle_info({received, _Packet}, State) ->
