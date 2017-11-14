@@ -1,7 +1,7 @@
 {{={% %}=}}
 <functional>
     <config>
-        <snatch module="{% name %}_xmpp"/>
+        <snatch router="{% name %}_snatch"/>
     </config>
 
     <steps>

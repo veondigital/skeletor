@@ -1,8 +1,10 @@
--module('{{name}}_xmpp_tests').
+-module('{{name}}_snatch_tests').
 -author('{{author_email}}').
 
 -include_lib("eunit/include/eunit.hrl").
 -include_lib("fast_xml/include/fxml.hrl").
+
+-define(XMPP_DOMAIN, "alice.localhost").
 
 custom_test_() ->
     {setup,
@@ -21,7 +23,8 @@ custom_test_() ->
                            {help, "Size of the stanzas sent to XMPP server"}]}
             ],
             application:set_env(prometheus, default_metrics, Metrics),
-            application:start(prometheus)
+            application:start(prometheus),
+            {ok, _} = {{name}}_snatch:start_link(?XMPP_DOMAIN)
         end,
         fun(_) ->
             application:stop(prometheus),
