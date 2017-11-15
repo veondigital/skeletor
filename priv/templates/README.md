@@ -3,6 +3,67 @@
 
 {{desc}}
 
+Kafka consumer
+--------------
+
+We use snatch and by default we are integrating the possibility to configure a Snatch configuration to receive and even send events from/to Kafka.
+
+The configuration inside of `{{name}}` configuration and inside of `snatch` subsection is as follow:
+
+```erlang
+{kafka, [
+    {endpoints, [{"localhost", 9092}]},
+    {in_topics, [{<<"{{name}}.in">>, [0]}]},
+    {raw, true}
+]},
+```
+
+This way we can configure several incoming events from the topic configured for the endpoints connected to.
+
+Kafka producer
+--------------
+
+In the same way as the previous we can setup a topic to do the send of the events via Kafka:
+
+```erlang
+{kafka, [
+    {endpoints, [{"localhost", 9092}]},
+    {in_topics, [{<<"{{name}}.in">>, [0]}]},
+    {out_topic, <<"{{name}}.out">>},
+    {out_partition, 0},
+    {raw, true}
+]},
+```
+
+For output (produce) we can only configure one topic and one partition. This way we avoid ambiguity.
+
+REST
+----
+
+This is intended to be a response processor for the claw. The way to work with this is:
+
+1. Client request to the client something (using `claws_rest:request`).
+2. Call was async so when the server responds the response arrives to the claw and it's moved to snatch (`snatch:received`).
+3. Snatch send the event to the implementation or listener (handler).
+
+The configuration of REST avoid to use the URL inside of the code. This way we work always only with URI.
+
+Note that the REST claw is designed to be called always for the same domain with persistent (keeping alive) connections to the web server.
+
+The configuration for the `{{name}}` section and `snatch` subsection is as follow:
+
+```erlang
+{rest, [
+    {domain, "localhost"},
+    {port, 80},
+    {schema, "http"},
+    {max_sessions, 10},
+    {max_pipeline_size, 1}
+]}
+```
+
+See [ibrowse](https://github.com/cmullaparthi/ibrowse/blob/master/README.md) documentation for further information.
+
 HTTP Interface
 --------------
 
