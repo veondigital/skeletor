@@ -11,6 +11,16 @@ start(_Type, _Args) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 stop(_State) ->
+    lists:foreach(fun({Module, _ConfigKey}) ->
+        case lists:member({unload, 0}, Module:module_info(exports)) of
+            true -> Module:unload();
+            false -> ok
+        end
+    end, children_data()),
+    %% ensure prometheus_http is cleaning its interfaces:
+    lists:foreach(fun({httpd, PID, _}) -> inets:stop(httpd, PID);
+                     (_) -> ok
+                  end, inets:services_info()),
     ok.
 
 init([]) ->
