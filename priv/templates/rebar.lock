@@ -24,7 +24,7 @@
  {<<"recon">>,{pkg,<<"recon">>,<<"2.3.2">>},0},
  {<<"snatch">>,
   {git,"https://github.com/manuel-rubio/snatch.git",
-       {ref,"1f8f5307c027148236d4913b82b54d74c49d5546"}},
+       {ref,"57e7a635007bf77232c0d7f093b1c8dcbb3e4f4b"}},
   0}]}.
 [
 {pkg_hash,[
