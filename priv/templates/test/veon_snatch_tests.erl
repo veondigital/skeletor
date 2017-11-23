@@ -4,31 +4,18 @@
 -include_lib("eunit/include/eunit.hrl").
 -include_lib("fast_xml/include/fxml.hrl").
 
--define(XMPP_DOMAIN, "alice.localhost").
+-define(XMPP_DOMAIN, <<"alice.localhost">>).
+
+-import(test_common, [start_prometheus/0, stop_prometheus/0]).
 
 custom_test_() ->
     {setup,
         fun() ->
-            application:load(prometheus),
-            Metrics = [
-                {histogram, [{name, users_session_duration_seconds},
-                             {labels, [usertype]},
-                             {buckets, [30, 60, 300, 600, 900, 1800, 3600]},
-                             {help, "User session duration in secs"}]},
-                {gauge, [{name, redis_pool},
-                         {help, "Size of the redis pool requirements"}]},
-                {counter, [{name, stanza_counter},
-                           {help, "The stanza number of elements handled"}]},
-                {summary, [{name, xmpp_kb_sent},
-                           {help, "Size of the stanzas sent to XMPP server"}]}
-            ],
-            application:set_env(prometheus, default_metrics, Metrics),
-            application:start(prometheus),
+            ok = start_prometheus(),
             {ok, _} = {{name}}_snatch:start_link(?XMPP_DOMAIN)
         end,
         fun(_) ->
-            application:stop(prometheus),
-            application:unload(prometheus)
+            ok = stop_prometheus()
         end,
         snatch_fun_test:check([
             "xmpp_ping"

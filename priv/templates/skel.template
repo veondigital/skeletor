@@ -20,12 +20,13 @@
 {template, "src/veon_app.erl", "{{name}}/src/{{name}}_app.erl"}.
 {template, "src/veon_http.erl", "{{name}}/src/{{name}}_http.erl"}.
 {template, "src/veon_metrics.erl", "{{name}}/src/{{name}}_metrics.erl"}.
-{template, "src/veon_redis.erl", "{{name}}/src/{{name}}_redis.erl"}.
+{template, "src/veon_cache.erl", "{{name}}/src/{{name}}_cache.erl"}.
 {template, "src/veon_snatch.erl", "{{name}}/src/{{name}}_snatch.erl"}.
 {dir, "{{name}}/test"}.
 {template, "test/veon_app_tests.erl", "{{name}}/test/{{name}}_app_tests.erl"}.
 {template, "test/veon_http_tests.erl", "{{name}}/test/{{name}}_http_tests.erl"}.
 {template, "test/veon_snatch_tests.erl", "{{name}}/test/{{name}}_snatch_tests.erl"}.
+{template, "test/test_common.erl", "{{name}}/test/test_common.erl"}.
 {dir, "{{name}}/test/functional"}.
 {template, "test/functional/xmpp_ping.xml", "{{name}}/test/functional/xmpp_ping.xml"}.
 {chmod, "{{name}}/rebar3", 8#755}.
