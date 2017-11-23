@@ -5,7 +5,7 @@
 -behaviour(supervisor).
 
 -export([start/2, stop/1, init/1]).
--export([to_int/1, to_str/1]).
+-export([to_int/1, to_str/1, to_bin/1]).
 
 start(_Type, _Args) ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
@@ -34,3 +34,8 @@ to_int(Bin) when is_binary(Bin) -> binary_to_integer(Bin).
 to_str(Num) when is_integer(Num) -> integer_to_list(Num);
 to_str(Str) when is_list(Str) -> Str;
 to_str(Bin) when is_binary(Bin) -> binary_to_list(Bin).
+
+to_bin(Num) when is_integer(Num) -> integer_to_binary(Num);
+to_bin(Str) when is_list(Str) -> list_to_binary(Str);
+to_bin(Bin) when is_binary(Bin) -> Bin;
+to_bin(Atom) when is_atom(Atom) -> atom_to_binary(Atom, utf8).
