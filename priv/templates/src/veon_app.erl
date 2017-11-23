@@ -21,11 +21,23 @@ init([]) ->
         children()
     }}.
 
+children_data() ->
+    [
+        {'{{name}}_cache', redis},
+        {'{{name}}_http', http},
+        {'{{name}}_snatch', snatch},
+        {'{{name}}_metrics', metrics}
+    ].
+
 children() ->
-    '{{name}}_redis':specs(application:get_env('{{name}}', redis, [])) ++
-    '{{name}}_http':specs(application:get_env('{{name}}', http, [])) ++
-    '{{name}}_snatch':specs(application:get_env('{{name}}', snatch, [])) ++
-    '{{name}}_metrics':specs(application:get_env('{{name}}', metrics, [])).
+    lists:flatmap(fun({Module, ConfigKey}) ->
+        ConfigVal = application:get_env('{{name}}', ConfigKey, []),
+        case lists:member({load, 0}, Module:module_info(exports)) of
+            true -> Module:load();
+            false -> ok
+        end,
+        Module:specs(ConfigVal)
+    end, children_data()).
 
 to_int(Num) when is_number(Num) -> Num;
 to_int(Str) when is_list(Str) -> list_to_integer(Str);
