@@ -75,7 +75,7 @@ build(Name, Args, VSN) ->
                      " -f Dockerfile.build " ++
                      " ."},
         {{"Running builder erlang/build-~s", [Name]},
-         "docker run --rm -v `pwd`:/opt/veon -i "
+         "docker run --rm -v `pwd`:/opt/" ++ Name ++ " -i "
          "erlang/build-" ++ Name}
     ] ++ maybe_remove(build, Args, Name),
     lists:foreach(fun run_cmd/1, Commands),
