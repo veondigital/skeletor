@@ -37,7 +37,8 @@ do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
     VSN = proplists:get_value(erlang_vsn, Args),
     rebar_api:info("Erlang version ~s", [VSN]),
-    Name = filename:basename(rebar_state:dir(State)),
+    Apps = rebar_state:project_apps(State),
+    Name = binary_to_list(rebar_app_info:name(hd(Apps))),
     case is_only_build(Args) of
         true ->
             build(Name, Args, VSN),
