@@ -35,7 +35,7 @@ And then:
                   git_project="communications/veon"
 ```
 
-This generates a new directory using the project name used on rebar3 command. Containing a ready to se base for your project.
+This generates a new directory using the project name used on rebar3 command. Containing a ready to use, project base.
 
 For further information read the [how-to here!](doc/how-to.md)
 
