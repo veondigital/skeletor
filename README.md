@@ -35,6 +35,6 @@ And then:
 
 This generates a new directory using the project name used on rebar3 command. Containing a ready to se base for your project.
 
-For further information read the [how-to here!](doc/how-to.md)
+For further information read the [how-to here!](doc/how_to.md)
 
 Enjoy!
