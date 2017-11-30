@@ -23,5 +23,5 @@
     {modules, []},
 
     {maintainers, ["{{author_name}}"]},
-    {licenses, ["Veon Proprietary"]}
+    {licenses, ["Apache 2"]}
 ]}.

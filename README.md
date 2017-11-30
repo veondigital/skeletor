@@ -1,10 +1,12 @@
 skeletor
 =====
 
-An Erlanhg Rebar Template to bootstrap HTTP and XMPP based Applications. 
+An Erlang Rebar Template to bootstrap HTTP and XMPP based Applications.
 It consists in an Application Core, an HTTP Handler, an XMPP handler, a prometheus metric collector and also a Redis connectivity module.
 
-![Skeletor](https://gitlab.knoopje.com/communications/skeletor/raw/development/skeletor.jpg)
+It's also a plugin for dockerize the release. Check [docker](doc/docker.md) doc for further information.
+
+![Skeletor](https://github.com/veondigital/skeletor/blob/development/skeletor.jpg)
 
 Build
 -----
@@ -20,7 +22,7 @@ Create a base directory for your projects having `rebar3` script and a `rebar.co
 
 ```
 {plugins, [
-    {skeletor, {git, "https://gitlab.knoopje.com/communications/skeletor.git", {branch, "master"}}}
+    {skeletor, {git, "https://github.com/veondigital/skeletor.git", {branch, "master"}}}
 ]}.
 ```
 
@@ -31,12 +33,11 @@ And then:
                   desc="A base service" \
                   author_name="Manuel Rubio" \
                   author_email="manuel.rubio@veon.com" \
-                  git_access="git@git.knoopje.com:" \
-                  git_project="communications/veon"
+                  tag="midomain.com/erlang/veon"
 ```
 
 This generates a new directory using the project name used on rebar3 command. Containing a ready to use, project base.
 
-For further information read the [how-to here!](doc/how-to.md)
+For further information read the [how-to here!](doc/how_to.md)
 
 Enjoy!
