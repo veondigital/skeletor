@@ -4,8 +4,7 @@
     {desc, "Skeletor app", "Description to be used for the skeleton"},
     {author_name, "Manuel Rubio", "name of the author"},
     {author_email, "manuel.rubio@veon.com", "email of the author"},
-    {git_access, "git@git.knoopje.com"},
-    {git_project, "communications/veon"}
+    {git_project_url, "", "your URL project"}
 ]}.
 {file, ".gitignore", "{{name}}/.gitignore"}.
 {template, "README.md", "{{name}}/README.md"}.

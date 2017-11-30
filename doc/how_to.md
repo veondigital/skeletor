@@ -1,7 +1,7 @@
 How to...
 =========
 
-This is a small guide to how to create a project using [Skeletor](https://gitlab.knoopje.com/communications/skeletor). It's pretty easy... let's go!
+This is a small guide to how to create a project using [Skeletor](https://github.com/veondigital/skeletor). It's pretty easy... let's go!
 
 The One Project...
 ------------------
@@ -15,7 +15,7 @@ The content of `rebar.config` is as follow:
 
 ```
 {plugins, [
-    {skeletor, {git, "https://gitlab.knoopje.com/communications/skeletor.git", {branch, "master"}}}
+    {skeletor, {git, "https://github.com/veondigital/skeletor.git", {branch, "master"}}}
 ]}.
 ```
 
