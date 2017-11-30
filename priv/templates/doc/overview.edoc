@@ -1,0 +1,13 @@
+@author Manuel Rubio <manuel.rubio@veon.com>
+@title Skeletor
+@copyright 2017
+
+@doc
+This document is intended to explain your project. You have to use the <a href="">EDoc format</a> and using <a href="">edown</a> it will be translated to Markdown format to be usable from web interfaces like Github, Gitlab, Bitbucket or similar ones.
+
+<pre lang="erlang"><![CDATA[-module(yourcode).
+
+hello_world() ->
+    io:format("hello world!").]]></pre>
+
+You can use `yourcode' module to figure out how to write this kind of entries in the documentation (including the doc entries in the comments thru your code).

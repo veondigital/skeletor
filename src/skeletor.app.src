@@ -1,0 +1,15 @@
+{application, skeletor,
+ [{description, "A rebar plugin"},
+  {vsn, "0.2.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.

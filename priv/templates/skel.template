@@ -1,0 +1,37 @@
+{description, "Complete Skeletor template structure."}.
+{variables, [
+    {name, "veon", "Name of the base application to be created"},
+    {desc, "Skeletor app", "Description to be used for the skeleton"},
+    {author_name, "Manuel Rubio", "name of the author"},
+    {author_email, "manuel.rubio@veon.com", "email of the author"},
+    {git_project_url, "", "your URL project"},
+    {tag, "", "name to tag and push docker images"}
+]}.
+{file, ".gitignore", "{{name}}/.gitignore"}.
+{template, "README.md", "{{name}}/README.md"}.
+{template, "rebar.config", "{{name}}/rebar.config"}.
+{file, "rebar.lock", "{{name}}/rebar.lock"}.
+{file, "rebar3", "{{name}}/rebar3"}.
+{dir, "{{name}}/config"}.
+{template, "config/sys.config", "{{name}}/config/sys.config"}.
+{file, "config/vm.args", "{{name}}/config/vm.args"}.
+{dir, "{{name}}/src"}.
+{template, "src/veon.app.src", "{{name}}/src/{{name}}.app.src"}.
+{template, "src/veon_app.erl", "{{name}}/src/{{name}}_app.erl"}.
+{template, "src/veon_http.erl", "{{name}}/src/{{name}}_http.erl"}.
+{template, "src/veon_metrics.erl", "{{name}}/src/{{name}}_metrics.erl"}.
+{template, "src/veon_cache.erl", "{{name}}/src/{{name}}_cache.erl"}.
+{template, "src/veon_snatch.erl", "{{name}}/src/{{name}}_snatch.erl"}.
+{dir, "{{name}}/test"}.
+{template, "test/veon_app_tests.erl", "{{name}}/test/{{name}}_app_tests.erl"}.
+{template, "test/veon_http_tests.erl", "{{name}}/test/{{name}}_http_tests.erl"}.
+{template, "test/veon_snatch_tests.erl", "{{name}}/test/{{name}}_snatch_tests.erl"}.
+{template, "test/test_common.erl", "{{name}}/test/test_common.erl"}.
+{dir, "{{name}}/test/functional"}.
+{template, "test/functional/xmpp_ping.xml", "{{name}}/test/functional/xmpp_ping.xml"}.
+{chmod, "{{name}}/rebar3", 8#755}.
+{dir, "{{name}}/script"}.
+{template, "script/start-prod.sh", "{{name}}/script/start-prod.sh"}.
+{chmod, "{{name}}/script/start-prod.sh", 8#755}.
+{template, "Dockerfile.build", "{{name}}/Dockerfile.build"}.
+{template, "Dockerfile.release", "{{name}}/Dockerfile.release"}.

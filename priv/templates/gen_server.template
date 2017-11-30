@@ -1,0 +1,7 @@
+{description, "gen_server template generated in src"}.
+{variables, [
+    {name, "simplesrv", "Name of the server to be created"},
+    {author_name, "Manuel Rubio", "name of the author"},
+    {author_email, "manuel.rubio@veon.com", "email of the author"}
+]}.
+{template, "src/gen_server.erl", "src/{{name}}.erl"}.

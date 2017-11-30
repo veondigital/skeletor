@@ -1,0 +1,27 @@
+{application, '{{name}}', [
+    {description, "{{desc}}"},
+    {vsn, git},
+    {registered, []},
+    {mod, {'{{name}}_app', []}},
+    {applications, [
+        kernel,
+        stdlib,
+        crypto,
+        lager,
+        sasl,
+        inets,
+        snatch,
+        poolboy,
+        eredis,
+        elli,
+        jsone,
+        prometheus,
+        prometheus_httpd,
+        recon
+    ]},
+    {env, []},
+    {modules, []},
+
+    {maintainers, ["{{author_name}}"]},
+    {licenses, ["Apache 2"]}
+]}.
