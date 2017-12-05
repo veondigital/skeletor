@@ -17,4 +17,4 @@ WORKDIR /opt
 ADD _build/prod/rel/{{name}} /opt/{{name}}
 WORKDIR /opt/{{name}}
 
-ENTRYPOINT ["/opt/{{name}}/bin/start-prod.sh", "console"]
+ENTRYPOINT ["/opt/{{name}}/bin/start-prod.sh", "foreground"]
