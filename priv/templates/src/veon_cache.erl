@@ -13,8 +13,8 @@
 -define(DEFAULT_CONN_TIMEOUT, 5000).
 -define(DEFAULT_RECONNECT_AFTER, 100).
 
-start_link([Host, Port, DB, Pass, ConnTimeout, ReconnAfter]) ->
-    eredis:start_link(Host, Port, DB, Pass, ConnTimeout, ReconnAfter).
+start_link([Host, Port, DB, Pass, ReconnAfter, ConnTimeout]) ->
+    eredis:start_link(Host, Port, DB, Pass, ReconnAfter, ConnTimeout).
 
 specs([]) ->
     [];
@@ -36,8 +36,8 @@ get_cfg(Cfg) ->
       proplists:get_value(port, Cfg, ?DEFAULT_PORT),
       proplists:get_value(database, Cfg, ?DEFAULT_DB),
       proplists:get_value(password, Cfg, ?DEFAULT_PASS),
-      proplists:get_value(connect_timeout, Cfg, ?DEFAULT_CONN_TIMEOUT),
-      proplists:get_value(reconnect_after, Cfg, ?DEFAULT_RECONNECT_AFTER) ].
+      proplists:get_value(reconnect_after, Cfg, ?DEFAULT_RECONNECT_AFTER),
+      proplists:get_value(connect_timeout, Cfg, ?DEFAULT_CONN_TIMEOUT) ].
 
 q(Query) ->
     {_, RedisPoolSize, _Overflow, _Monitors} = poolboy:status(?MODULE),
