@@ -4,6 +4,7 @@
 export RELX_REPLACE_OS_VARS=true
 export NODE_NAME="${NODE_NAME:-<% name %>}"
 export NODE_COOKIE="${NODE_COOKIE:-<% name %>_cookie}"
+export ERL_EPMD_PORT="${ERL_EPMD_PORT:-4369}"
 export HTTP_PORT="${HTTP_PORT:-8000}"
 export REDIS_HOST="${REDIS_HOST:-127.0.0.1}"
 export REDIS_PORT="${REDIS_PORT:-6379}"

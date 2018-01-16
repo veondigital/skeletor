@@ -7,6 +7,9 @@
 ## Nodes listening ports for distributed erlang
 -kernel inet_dist_listen_min 9100 inet_dist_listen_max 9191
 
+## We're going to use the epmd launched in another container
+-start_epmd false
+
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
 ##-heart
