@@ -1,11 +1,17 @@
 ## Name of the node
--name ${NODE_NAME}
+# Note that inside of a container it's possible keep a shortname
+# using only localhost... if you need cluster configuration in other
+# way, you can change it.
+-sname ${NODE_NAME}@localhost
 
 ## Cookie for distributed erlang
 -setcookie ${NODE_COOKIE}
 
 ## Nodes listening ports for distributed erlang
 -kernel inet_dist_listen_min 9100 inet_dist_listen_max 9191
+
+## We're going to use the epmd launched in another container
+-start_epmd false
 
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
