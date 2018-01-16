@@ -1,5 +1,8 @@
 ## Name of the node
--name ${NODE_NAME}
+# Note that inside of a container it's possible keep a shortname
+# using only localhost... if you need cluster configuration in other
+# way, you can change it.
+-sname ${NODE_NAME}@localhost
 
 ## Cookie for distributed erlang
 -setcookie ${NODE_COOKIE}
