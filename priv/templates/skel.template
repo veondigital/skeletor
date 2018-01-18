@@ -5,7 +5,8 @@
     {author_name, "Manuel Rubio", "name of the author"},
     {author_email, "manuel.rubio@veon.com", "email of the author"},
     {git_project_url, "", "your URL project"},
-    {tag, "", "name to tag and push docker images"}
+    {tag, "", "name to tag and push docker images"},
+    {start_epmd, "true", "configure if start_epmd should start"}
 ]}.
 {file, ".gitignore", "{{name}}/.gitignore"}.
 {template, "README.md", "{{name}}/README.md"}.
