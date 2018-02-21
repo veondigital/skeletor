@@ -12,11 +12,10 @@ init(State) ->
             {example, "rebar3 docker-build"},
             {opts, [
                 % list of options understood by the plugin
-                {erlang_vsn, $e, "erlang-vsn", {string, "19.3"}, "specify the Erlang version to use"},
                 {no_delete_img, $k, "keep-img", integer, "no remove image"}
             ]},
             {short_desc, "Create a docker image to build the project"},
-            {desc, "Create a docker image to build the project. It uses Debian Stretch and Erlang 19.3 as default."},
+            {desc, "Create a docker image to build the project."},
             {namespace, docker}
     ]),
     {ok, rebar_state:add_provider(State, Provider)}.
@@ -25,19 +24,16 @@ init(State) ->
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
-    VSN = erlang_vsn(State),
-    rebar_api:info("Erlang version ~s", [VSN]),
     Apps = rebar_state:project_apps(State),
     Name = binary_to_list(rebar_app_info:name(hd(Apps))),
-    build(Name, Args, VSN),
+    build(Name, Args),
     rebar_api:info("Compiled ~s", [Name]),
     {ok, State}.
 
-build(Name, Args, VSN) ->
+build(Name, Args) ->
     Commands = [
         {{"Building image erlang/build-~s", [Name]},
          "docker build -t erlang/build-" ++ Name ++
-                     " --build-arg ERLANG_VSN=" ++ VSN ++
                      " -f Dockerfile.build " ++
                      " ."},
         {{"Running builder erlang/build-~s", [Name]},
@@ -62,20 +58,3 @@ maybe_remove(Args, Name) ->
 -spec format_error(any()) ->  iolist().
 format_error(Reason) ->
     io_lib:format("~p", [Reason]).
-
-erlang_vsn(State) ->
-    {Args, _} = rebar_state:command_parsed_args(State),
-    case proplists:get_value(erlang_vsn, Args) of
-        undefined ->
-            Docker = rebar_state:get(State, docker, []),
-            case proplists:get_value(erlang_vsn, Docker) of
-                undefined ->
-                    rebar_api:abort("erlang_vsn isn't configured!", []);
-                "" ->
-                    rebar_api:abort("erlang_vsn isn't configured!", []);
-                VSN ->
-                    VSN
-            end;
-        VSN ->
-            VSN
-    end.
