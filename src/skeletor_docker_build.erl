@@ -25,7 +25,7 @@ init(State) ->
 -spec do(rebar_state:t()) -> {ok, rebar_state:t()} | {error, string()}.
 do(State) ->
     {Args, _} = rebar_state:command_parsed_args(State),
-    VSN = proplists:get_value(erlang_vsn, Args),
+    VSN = erlang_vsn(State),
     rebar_api:info("Erlang version ~s", [VSN]),
     Apps = rebar_state:project_apps(State),
     Name = binary_to_list(rebar_app_info:name(hd(Apps))),
@@ -62,3 +62,20 @@ maybe_remove(Args, Name) ->
 -spec format_error(any()) ->  iolist().
 format_error(Reason) ->
     io_lib:format("~p", [Reason]).
+
+erlang_vsn(State) ->
+    {Args, _} = rebar_state:command_parsed_args(State),
+    case proplists:get_value(erlang_vsn, Args) of
+        undefined ->
+            Docker = rebar_state:get(State, docker, []),
+            case proplists:get_value(erlang_vsn, Docker) of
+                undefined ->
+                    rebar_api:abort("erlang_vsn isn't configured!", []);
+                "" ->
+                    rebar_api:abort("erlang_vsn isn't configured!", []);
+                VSN ->
+                    VSN
+            end;
+        VSN ->
+            VSN
+    end.

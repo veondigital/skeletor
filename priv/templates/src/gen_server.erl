@@ -1,4 +1,4 @@
--module('{{name}}_snatch').
+-module('{{name}}').
 -author('{{author_email}}').
 
 -behaviour(gen_server).
